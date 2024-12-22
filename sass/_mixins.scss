@@ -1,0 +1,74 @@
+// Container
+@mixin container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-unit;
+}
+
+// Flexbox
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+// Dark mode
+@mixin dark-mode {
+    [data-theme="dark"] & {
+        @content;
+    }
+}
+
+// Media queries
+@mixin media-breakpoint-up($breakpoint) {
+    @if $breakpoint == sm {
+        @media (min-width: 576px) { @content; }
+    } @else if $breakpoint == md {
+        @media (min-width: 768px) { @content; }
+    } @else if $breakpoint == lg {
+        @media (min-width: 992px) { @content; }
+    } @else if $breakpoint == xl {
+        @media (min-width: 1200px) { @content; }
+    }
+}
+
+// Card styles
+@mixin card {
+    background-color: $background-color;
+    border-radius: $border-radius;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: $transition-base;
+    
+    @include dark-mode {
+        background-color: $dark-background;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+}
+
+// Button base
+@mixin button-base {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: $border-radius;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: $transition-base;
+}
+
+// Headings
+@mixin heading($size) {
+    font-size: $size;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: $spacing-unit;
+}

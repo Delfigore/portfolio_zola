@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ config.description }}">
+    <meta name="keywords" content="{{ config.extra.keywords }}">
+    <meta name="author" content="{{ config.extra.author }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ config.base_url | safe }}">
+    <meta property="og:title" content="{% if section.title %}{{ section.title }} | {% endif %}{{ config.title }}">
+    <meta property="og:description" content="{{ config.description }}">
+    <meta property="og:image" content="{{ config.base_url }}{{ config.extra.og_image }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="{{ config.extra.twitter_card }}">
+    <meta property="twitter:url" content="{{ config.base_url | safe }}">
+    <meta property="twitter:title" content="{% if section.title %}{{ section.title }} | {% endif %}{{ config.title }}">
+    <meta property="twitter:description" content="{{ config.description }}">
+    <meta property="twitter:image" content="{{ config.base_url }}{{ config.extra.og_image }}">
+
+    <title>{% if section.title %}{{ section.title }} | {% endif %}{{ config.title }}</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ get_url(path='style.css') | safe }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ get_url(path='images/favicon.png') | safe }}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo" aria-label="Home">{{ config.extra.author }}</a>
+            <div class="nav-links">
+                <a href="#about" aria-label="About section">About</a>
+                <a href="#skills" aria-label="Skills section">Skills</a>
+                <a href="#projects" aria-label="Projects section">Projects</a>
+                <a href="#contact" aria-label="Contact section">Contact</a>
+            </div>
+            <div class="nav-buttons">
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" aria-label="Close mobile menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <a href="#about" aria-label="About section">About</a>
+            <a href="#skills" aria-label="Skills section">Skills</a>
+            <a href="#projects" aria-label="Projects section">Projects</a>
+            <a href="#contact" aria-label="Contact section">Contact</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                {% if config.extra.github %}
+                <a href="{{ config.extra.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                {% endif %}
+                {% if config.extra.linkedin %}
+                <a href="{{ config.extra.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                {% endif %}
+                {% if config.extra.twitter %}
+                <a href="{{ config.extra.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                {% endif %}
+                {% if config.extra.email %}
+                <a href="mailto:{{ config.extra.email }}" aria-label="Email Contact">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                {% endif %}
+            </div>
+            <p class="copyright">
+                &copy; {{ now() | date(format="%Y") }} {{ config.extra.author }}. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            delay: 100
+        });
+    </script>
+    <script src="{{ get_url(path='main.js') | safe }}"></script>
+    
+    {% if config.extra.google_analytics %}
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ config.extra.google_analytics }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ config.extra.google_analytics }}');
+    </script>
+    {% endif %}
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,390 @@
+@import "variables";
+@import "mixins";
+
+// Base Styles
+html {
+    font-size: $font-size-base;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: $font-family-base;
+    line-height: $line-height-base;
+    color: $text-color;
+    background-color: $background-color;
+    transition: $transition-base;
+    margin: 0;
+    padding: 0;
+    
+    @include dark-mode {
+        background-color: $dark-background;
+        color: $dark-text;
+    }
+}
+
+.container {
+    @include container;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+h1 { @include heading(2.5rem); }
+h2 { @include heading(2rem); }
+h3 { @include heading(1.75rem); }
+h4 { @include heading(1.5rem); }
+
+// Navigation
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($background-color, 0.95);
+    padding: $spacing-unit 0;
+    z-index: $z-index-navbar;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    
+    @include dark-mode {
+        background-color: rgba($dark-background, 0.95);
+    }
+    
+    .container {
+        @include flex(row, space-between, center);
+    }
+    
+    .nav-links {
+        @include flex(row, center, center);
+        gap: $spacing-unit * 2;
+        
+        @media (max-width: 768px) {
+            display: none;
+        }
+        
+        a {
+            color: $text-color;
+            text-decoration: none;
+            font-weight: 500;
+            transition: $transition-base;
+            
+            &:hover {
+                color: $primary-color;
+            }
+            
+            @include dark-mode {
+                color: $dark-text;
+                
+                &:hover {
+                    color: lighten($primary-color, 10%);
+                }
+            }
+        }
+    }
+}
+
+// Mobile Menu
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($dark-background, 0.95);
+    z-index: $z-index-modal;
+    
+    &.active {
+        display: block;
+    }
+    
+    &-content {
+        @include flex(column, center, center);
+        height: 100%;
+        gap: $spacing-unit * 2;
+        
+        a {
+            color: $dark-text;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            transition: $transition-base;
+            
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+}
+
+// Hero Section
+.hero {
+    padding: ($spacing-unit * 8) 0;
+    text-align: center;
+    
+    &-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    &-social {
+        @include flex(row, center, center);
+        gap: $spacing-unit;
+        margin-top: $spacing-unit * 2;
+        
+        a {
+            color: $text-color;
+            font-size: 1.5rem;
+            transition: $transition-base;
+            
+            &:hover {
+                color: $primary-color;
+                transform: translateY(-2px);
+            }
+            
+            @include dark-mode {
+                color: $dark-text;
+            }
+        }
+    }
+}
+
+// Sections
+section {
+    padding: ($spacing-unit * 4) 0;
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: $spacing-unit * 3;
+    }
+}
+
+// Skills Section
+.skills {
+    background-color: $light-gray;
+    
+    @include dark-mode {
+        background-color: lighten($dark-background, 5%);
+    }
+    
+    &-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-unit * 2;
+        
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    .skill-category {
+        h3 {
+            margin-bottom: $spacing-unit * 1.5;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        li {
+            margin-bottom: $spacing-unit;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background-color: rgba($primary-color, 0.1);
+            border-radius: $border-radius;
+            overflow: hidden;
+            margin-top: 0.5rem;
+            
+            .skill-level {
+                height: 100%;
+                background-color: $primary-color;
+                border-radius: $border-radius;
+                transition: width 1s ease-in-out;
+            }
+        }
+    }
+}
+
+// Projects Section
+.projects {
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: $spacing-unit * 2;
+    }
+}
+
+.project-card {
+    @include card;
+    
+    &-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: $border-radius $border-radius 0 0;
+    }
+    
+    &-content {
+        padding: $spacing-unit * 1.5;
+    }
+    
+    &-type {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background-color: rgba($primary-color, 0.1);
+        color: $primary-color;
+        border-radius: $border-radius;
+        font-size: 0.875rem;
+        margin-bottom: $spacing-unit;
+        
+        @include dark-mode {
+            background-color: rgba($primary-color, 0.2);
+        }
+    }
+    
+    &-tech {
+        @include flex(row, flex-start, center);
+        flex-wrap: wrap;
+        gap: $spacing-unit * 0.5;
+        margin-top: $spacing-unit;
+    }
+    
+    .tech-tag {
+        background-color: rgba($secondary-color, 0.1);
+        color: $secondary-color;
+        padding: 0.25rem 0.75rem;
+        border-radius: $border-radius;
+        font-size: 0.875rem;
+        
+        @include dark-mode {
+            background-color: rgba($secondary-color, 0.2);
+            color: lighten($secondary-color, 15%);
+        }
+    }
+    
+    &-links {
+        @include flex(row, flex-start, center);
+        gap: $spacing-unit;
+        margin-top: $spacing-unit;
+        
+        a {
+            @include button-base;
+            background-color: $primary-color;
+            color: white;
+            
+            &:hover {
+                background-color: darken($primary-color, 10%);
+            }
+            
+            i {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
+
+// Contact Section
+.contact {
+    background-color: $light-gray;
+    text-align: center;
+    
+    @include dark-mode {
+        background-color: lighten($dark-background, 5%);
+    }
+    
+    &-links {
+        @include flex(row, center, center);
+        gap: $spacing-unit * 2;
+        margin-top: $spacing-unit * 2;
+        
+        @media (max-width: 576px) {
+            flex-direction: column;
+        }
+    }
+    
+    &-link {
+        @include button-base;
+        background-color: $primary-color;
+        color: white;
+        
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+        
+        i {
+            margin-right: $spacing-unit * 0.5;
+        }
+    }
+}
+
+// Footer
+footer {
+    background-color: $dark-gray;
+    color: white;
+    padding: ($spacing-unit * 2) 0;
+    
+    .social-links {
+        @include flex(row, center, center);
+        gap: $spacing-unit;
+        margin-bottom: $spacing-unit;
+        
+        a {
+            color: white;
+            font-size: 1.25rem;
+            transition: $transition-base;
+            
+            &:hover {
+                color: $primary-color;
+                transform: translateY(-2px);
+            }
+        }
+    }
+    
+    .copyright {
+        text-align: center;
+        margin: 0;
+        font-size: 0.875rem;
+        opacity: 0.8;
+    }
+}
+
+// Theme Toggle
+.theme-toggle {
+    @include button-base;
+    background: none;
+    color: $text-color;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    
+    @include dark-mode {
+        color: $dark-text;
+    }
+    
+    &:hover {
+        transform: rotate(15deg);
+    }
+}
+
+// Mobile Menu Button
+.mobile-menu-btn {
+    @include button-base;
+    background: none;
+    color: $text-color;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    display: none;
+    
+    @media (max-width: 768px) {
+        display: block;
+    }
+    
+    @include dark-mode {
+        color: $dark-text;
+    }
+}

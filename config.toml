@@ -15,6 +15,19 @@ external_links_target_blank = true
 external_links_no_follow = true
 smart_punctuation = true
 
+# Taxonomies
+taxonomies = [
+    {name = "tags", feed = true},
+    {name = "categories", feed = true}
+]
+
+# Search configuration
+[search]
+include_title = true
+include_description = true
+include_path = true
+include_content = true
+
 [extra]
 # Author information
 author = "delfigore"
@@ -36,3 +49,24 @@ twitter_card = "summary_large_image"
 enable_dark_mode = true
 enable_smooth_scroll = true
 google_analytics = "" # Add your GA tag if needed
+
+# Navigation
+[[extra.menu.main]]
+name = "About"
+url = "#about"
+weight = 1
+
+[[extra.menu.main]]
+name = "Skills"
+url = "#skills"
+weight = 2
+
+[[extra.menu.main]]
+name = "Projects"
+url = "#projects"
+weight = 3
+
+[[extra.menu.main]]
+name = "Contact"
+url = "#contact"
+weight = 4
