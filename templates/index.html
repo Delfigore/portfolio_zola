@@ -71,9 +71,79 @@
         <!-- Hero Section -->
         <header class="hero">
             <div class="container">
-                {{ section.content | safe }}
+                <div class="hero-content" data-aos="fade-up">
+                    <h1>Hi, I'm {{ config.extra.author }}</h1>
+                    <p class="hero-subtitle">{{ config.extra.role }} from {{ config.extra.location }}</p>
+                    <div class="hero-social">
+                        {% if config.extra.github %}
+                        <a href="{{ config.extra.github }}" target="_blank" rel="noopener" aria-label="GitHub Profile">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        {% endif %}
+                        {% if config.extra.linkedin %}
+                        <a href="{{ config.extra.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        {% endif %}
+                        {% if config.extra.twitter %}
+                        <a href="{{ config.extra.twitter }}" target="_blank" rel="noopener" aria-label="Twitter Profile">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        {% endif %}
+                        {% if config.extra.email %}
+                        <a href="mailto:{{ config.extra.email }}" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </header>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">About Me</h2>
+                <div class="about-content" data-aos="fade-up" data-aos-delay="100">
+                    <p>I'm a passionate web developer with a keen eye for design and a commitment to creating seamless user experiences. With expertise in both frontend and backend technologies, I bring ideas to life through clean, efficient code.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Skills & Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Frontend Development</h3>
+                        <ul>
+                            {% for skill in section.extra.skills.frontend %}
+                            <li>
+                                <span class="skill-name">{{ skill.name }}</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: {{ skill.level }}%"></div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Backend Development</h3>
+                        <ul>
+                            {% for skill in section.extra.skills.backend %}
+                            <li>
+                                <span class="skill-name">{{ skill.name }}</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: {{ skill.level }}%"></div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Projects Section -->
         <section id="projects" class="projects">
