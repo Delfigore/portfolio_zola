@@ -47,10 +47,6 @@
 
 html {
     scroll-behavior: smooth;
-    text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
 }
 
 body {
@@ -58,9 +54,6 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
-    font-size: 16px;
-    text-size-adjust: none;
-    -webkit-text-size-adjust: none;
 }
 
 .container {
@@ -247,20 +240,6 @@ body {
     
     .nav-buttons {
         margin-left: auto;
-    }
-    
-    body {
-        font-size: 16px;
-    }
-    
-    input, select, textarea {
-        font-size: 16px;
-    }
-    
-    .hero {
-        padding: 6rem 0 4rem;
-        text-align: center;
-        min-height: 100vh;
     }
 }
 
