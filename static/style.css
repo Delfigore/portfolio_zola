@@ -47,19 +47,13 @@
 
 html {
     scroll-behavior: smooth;
-    height: -webkit-fill-available;
-    font-size: 16px;
-    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    font-size: 16px;
 }
 
 .container {
@@ -359,13 +353,7 @@ body {
     /* Hero Section */
     .hero {
         padding: 6rem 0 4rem;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-        height: auto;
-    }
-    
-    .hero-content {
-        padding: 2rem 1rem;
+        text-align: center;
     }
 
     .hero h1 {
@@ -501,7 +489,6 @@ body {
 .hero {
     padding: 10rem 0 6rem;
     min-height: 100vh;
-    min-height: -webkit-fill-available;
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, var(--accent-color) 0%, var(--bg-color) 100%);
@@ -559,19 +546,6 @@ body {
 .hero-social a:hover {
     color: var(--primary-color);
     transform: translateY(-2px);
-}
-
-@media (max-width: 768px) {
-    .hero {
-        padding: 6rem 0 4rem;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-        height: auto;
-    }
-    
-    .hero-content {
-        padding: 2rem 1rem;
-    }
 }
 
 /* About Section */
@@ -1008,6 +982,28 @@ button:focus {
 /* Loading States */
 .loading {
     opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .theme-toggle,
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .project-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+
     pointer-events: none;
 }
 
