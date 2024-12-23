@@ -123,7 +123,30 @@ const observeSkillBars = () => {
     });
 };
 
-// Initialize when DOM is loaded
+// Handle initial viewport
+function handleViewport() {
+    // Force a reflow to ensure proper viewport calculation
+    document.body.style.display = 'none';
+    document.body.offsetHeight; // Force reflow
+    document.body.style.display = '';
+
+    // Ensure proper viewport height on mobile
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Run immediately
+handleViewport();
+
+// Run on DOM content loaded
 document.addEventListener('DOMContentLoaded', () => {
     observeSkillBars();
+    handleViewport();
+});
+
+// Run on resize with debounce
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(handleViewport, 250);
 });
