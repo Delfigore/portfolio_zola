@@ -18,6 +18,15 @@
     align-items: $align;
 }
 
+// Responsive flex column
+@mixin flex-responsive($breakpoint: md) {
+    @include flex(row);
+    
+    @include media-breakpoint-down($breakpoint) {
+        flex-direction: column;
+    }
+}
+
 // Dark mode
 @mixin dark-mode {
     [data-theme="dark"] & {
@@ -51,28 +60,41 @@
     }
 }
 
-// Grid system
+// Grid system with responsive columns
 @mixin grid($columns: 1, $gap: $spacing-unit) {
     display: grid;
     grid-template-columns: repeat($columns, 1fr);
     gap: $gap;
     
+    @include media-breakpoint-down(lg) {
+        grid-template-columns: repeat(min($columns, 2), 1fr);
+        gap: $gap * 0.75;
+    }
+    
     @include media-breakpoint-down(md) {
         grid-template-columns: repeat(min($columns, 2), 1fr);
+        gap: $gap * 0.5;
     }
     
     @include media-breakpoint-down(sm) {
         grid-template-columns: 1fr;
+        gap: $gap * 0.5;
     }
 }
 
-// Card styles
+// Responsive typography
+@mixin responsive-font($min-size: 1rem, $max-size: 1.25rem, $min-width: 320px, $max-width: 1200px) {
+    font-size: clamp($min-size, calc($min-size + ($max-size - $min-size) * ((100vw - $min-width) / ($max-width - $min-width))), $max-size);
+}
+
+// Card styles with improved responsiveness
 @mixin card {
     background-color: $background-color;
     border-radius: $border-radius;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: $transition-base;
     overflow: hidden;
+    height: 100%;
     
     @include dark-mode {
         background-color: $dark-background;
@@ -82,33 +104,38 @@
     &:hover {
         transform: translateY(-5px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-    
-    @include media-breakpoint-down(sm) {
-        margin-bottom: $spacing-unit;
+        
+        @include media-breakpoint-down(sm) {
+            transform: translateY(-3px);
+        }
     }
 }
 
-// Button base
+// Button base with touch-friendly sizing
 @mixin button-base {
     display: inline-flex;
     align-items: center;
-    padding: 0.5rem 1rem;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
     border: none;
     border-radius: $border-radius;
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
     transition: $transition-base;
+    min-height: 44px; // Touch-friendly
     
     @include media-breakpoint-down(sm) {
         width: 100%;
-        justify-content: center;
-        margin-bottom: $spacing-unit * 0.5;
+        padding: 0.875rem 1.75rem;
+    }
+    
+    &:active {
+        transform: translateY(1px);
     }
 }
 
-// Headings
+// Heading styles with responsive sizing
 @mixin heading($size) {
     font-size: $size;
     font-weight: 700;
@@ -116,10 +143,22 @@
     margin-bottom: $spacing-unit;
     
     @include media-breakpoint-down(md) {
-        font-size: $size * 0.85;
+        font-size: $size * 0.9;
     }
     
     @include media-breakpoint-down(sm) {
-        font-size: $size * 0.75;
+        font-size: $size * 0.8;
     }
+}
+
+// Safe-area spacing for modern devices
+@mixin safe-area-padding($position: bottom) {
+    padding-#{$position}: calc($spacing-unit + env(safe-area-inset-#{$position}, 0px));
+}
+
+// Touch target sizing
+@mixin touch-target {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px;
 }
