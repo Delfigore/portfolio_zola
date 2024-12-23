@@ -4,6 +4,10 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 $spacing-unit;
+    
+    @include media-breakpoint-down(sm) {
+        padding: 0 ($spacing-unit * 0.75);
+    }
 }
 
 // Flexbox
@@ -21,7 +25,7 @@
     }
 }
 
-// Media queries
+// Media queries - Up
 @mixin media-breakpoint-up($breakpoint) {
     @if $breakpoint == sm {
         @media (min-width: 576px) { @content; }
@@ -34,12 +38,41 @@
     }
 }
 
+// Media queries - Down
+@mixin media-breakpoint-down($breakpoint) {
+    @if $breakpoint == sm {
+        @media (max-width: 575.98px) { @content; }
+    } @else if $breakpoint == md {
+        @media (max-width: 767.98px) { @content; }
+    } @else if $breakpoint == lg {
+        @media (max-width: 991.98px) { @content; }
+    } @else if $breakpoint == xl {
+        @media (max-width: 1199.98px) { @content; }
+    }
+}
+
+// Grid system
+@mixin grid($columns: 1, $gap: $spacing-unit) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+    
+    @include media-breakpoint-down(md) {
+        grid-template-columns: repeat(min($columns, 2), 1fr);
+    }
+    
+    @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr;
+    }
+}
+
 // Card styles
 @mixin card {
     background-color: $background-color;
     border-radius: $border-radius;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: $transition-base;
+    overflow: hidden;
     
     @include dark-mode {
         background-color: $dark-background;
@@ -49,6 +82,10 @@
     &:hover {
         transform: translateY(-5px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    @include media-breakpoint-down(sm) {
+        margin-bottom: $spacing-unit;
     }
 }
 
@@ -63,6 +100,12 @@
     text-decoration: none;
     cursor: pointer;
     transition: $transition-base;
+    
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: $spacing-unit * 0.5;
+    }
 }
 
 // Headings
@@ -71,4 +114,12 @@
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: $spacing-unit;
+    
+    @include media-breakpoint-down(md) {
+        font-size: $size * 0.85;
+    }
+    
+    @include media-breakpoint-down(sm) {
+        font-size: $size * 0.75;
+    }
 }
