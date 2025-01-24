@@ -10,7 +10,7 @@ description = "Modern portfolio website built with Next.js 14, featuring a sleek
 tech = ["Next.js 14", "React", "TypeScript", "Tailwind CSS", "Framer Motion"]
 demo_link = "https://delfigore.vercel.app/"
 github_link = "https://github.com/Delfigore/portfolio_next"
-image = "/images/projects/nextjs-portfolio.wp2"
+image = "/images/projects/nextjs-portfolio.webp"
 featured = true
 
 [[extra.projects]]
